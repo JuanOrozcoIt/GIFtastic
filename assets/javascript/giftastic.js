@@ -1,4 +1,4 @@
-var topics = ['Akita Inu', 'Bull Terrier', 'Bulldog', 'Schnauzer'];
+var topics = ['Ferrari', 'Dodge Viper', 'Lamborghini', 'Tesla'];
 var prependString = '';
 var appendString = '';
 
