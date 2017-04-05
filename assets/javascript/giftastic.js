@@ -45,7 +45,7 @@ function postAjaxObject(doThis, search, numItems) {
     var dataSize = data.length;
     var randIndex;
     var prevRandIndexes = [];
-    //globalObj = response;
+    
     if (dataSize != 0) {
 
       for (var i = 0; i < numItems; i++) {
