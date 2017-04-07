@@ -1,9 +1,10 @@
+// Creating an array for topics which takes user input topics too.
 var topics = ['Ferrari', 'Dodge Viper', 'Lamborghini', 'Tesla'];
 var prependString = '';
 var appendString = '';
 
 var globalObj = {};
-
+// This is the function to create buttons.
 function buildButton(value) {
   var $newButton = $('<button>');
   var inputValue = value;
@@ -14,6 +15,7 @@ function buildButton(value) {
   $newButton.addClass('btn btn-success api-query');
   $('#buttons-container').append($newButton);
 }
+// This functions creates the images from API call.
 function createImg(imgObj) {
   var $newImg = $('<img>',{
     data: {
@@ -31,7 +33,7 @@ function createImg(imgObj) {
     class: 'img-container'
   }).append($newImg, $rating));
 }
-
+// Ajax call to get user input and perform images search
 function postAjaxObject(doThis, search, numItems) {
 
   search = prependString + search  + appendString;
@@ -47,10 +49,8 @@ function postAjaxObject(doThis, search, numItems) {
     var prevRandIndexes = [];
     
     if (dataSize != 0) {
-
       for (var i = 0; i < numItems; i++) {
         randIndex = Math.floor(Math.random() * dataSize);
-
         while (prevRandIndexes.indexOf(randIndex) !== -1) {
           randIndex = Math.floor(Math.random() * dataSize);
         }
@@ -63,6 +63,7 @@ function postAjaxObject(doThis, search, numItems) {
     }
   });
 }
+// Once page is loaded, the rest of the logic runs
 $(document).ready(function () {
 
   if(localStorage.getItem('topicsArray')){
@@ -75,7 +76,6 @@ $(document).ready(function () {
 
     var $checkBox = $(this);
     if($checkBox.is(":checked")){
-
       if($checkBox.hasClass('prepend')){
         prependString = $checkBox.attr('value') + " ";
       }
@@ -92,10 +92,8 @@ $(document).ready(function () {
     }
   });
   $('#submit-input').on('click', function (event) {
-
     event.preventDefault();
     var searchTerm = $('#input-bar').val();
-
     if($('#input-bar').val()){
       buildButton(searchTerm);
       topics.push(searchTerm);
@@ -120,30 +118,23 @@ $(document).ready(function () {
       $(this).data("state", 'stop')
     }
   });
-
   $('#save-button').on('click', function () {
-
     localStorage.setItem('topicsArray', topics);
   });
-
   $('#delete-button').on('click', function () {
     var buttonsList = $('#buttons-container').children('.api-query');
-
     if($('#delete-button').attr('data-active') == 'true'){
-
       $('#delete-button').attr('data-active', 'false');
       $(buttonsList).attr('data-delete', 'false');
       $('#delete-button').removeClass('btn-danger').addClass('btn-default');
       $(buttonsList).attr('class', 'btn btn-success api-query');
 
     }else if($('#delete-button').attr('data-active') == 'false'){
-
       $('#delete-button').attr('data-active', 'true');
       $(buttonsList).attr('data-delete', 'true');
       $('#delete-button').removeClass('btn-default').addClass('btn-danger');
       $(buttonsList).attr('class', 'btn btn-danger api-query');
     }
-
     $('#buttons-container').on('click', '.api-query', function () {
       if($('#delete-button').attr('data-active') == 'true'){
         var buttonData = $(this).attr('data-query');
